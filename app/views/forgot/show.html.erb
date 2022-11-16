@@ -1,0 +1,18 @@
+<h3 class="text-center mt-8"> Please enter your email address </h3>
+
+<div class="row justify-content-center mt-8">
+	<div class="col-10">
+		<%= form_with(scope: :forgot, url: forgot_path, local: true, data: { turbo: false }) do |f| %>
+			<div class="form-group row">
+	            <%= f.label :email, class: "col-2 col-form-label text-light" %>
+	            <div class="col-10">
+	               <%= f.email_field :email,class: "form-control shadow rounded", placeholder: "Enter email" %> 
+	            </div>
+	         </div>
+	         <br>
+	         <div class="form-group row justify-content-center">
+	            <%= f.submit "Send OTP", class: "btn btn-outline-dark btn-lg col-2" %>
+	         </div>
+		<% end %>
+	</div>
+</div>
