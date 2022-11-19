@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
   <%= link_to "BookYourRoom", root_path, class: 'navbar-brand' %>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,21 +8,21 @@
     <ul class="navbar-nav mr-auto">
       <% if logged_in? %>
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <%= link_to "Search Spaces", hotels_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Owned spaces",'users/'+current_user.id.to_s+'/hotels', class: 'nav-link' %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Profile
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
+            <%= link_to "Show profile", user_path(current_user), class: 'dropdown-item' %>
+            <%= link_to "Edit profile", edit_user_path(current_user), class: 'dropdown-item' %>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Something else here</a>
+            <%= link_to "Delete profile", '#', class: 'dropdown-item' %>
           </div>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
         </li>
       <% else %>
         <li class="nav-item">
@@ -35,17 +35,18 @@
     </ul>
     <ul class="navbar-nav ml-auto">
       <% if logged_in? %>
-       <li class="nav-item mr-2 nav-link active text-primary">
-          <%= current_user.name %>
+       <li class="nav-item mr-2">
+          <%= link_to current_user.name, user_path(current_user), class: 'nav-link' %>
         </li>
         <li class="nav-item mr-2">
           <%= link_to "Logout", logout_path,class: 'nav-link btn btn-warning', method: :delete %>
         </li>
       <% end %>
     </ul>
+    <%# 
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
+    </form> %>
   </div>
 </nav>

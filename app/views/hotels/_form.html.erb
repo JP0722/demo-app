@@ -1,0 +1,57 @@
+<div class="row justify-content-center mt-8">
+   <div class="col-10">
+      <%= render 'shared/errors', obj: @hotel %>
+      <%= form_with(model: @hotel, local: true, data: { turbo: false }) do |f| %>
+         <br>
+         <div class="form-group row">
+            <%= f.label :name, class: "col-2 col-form-label text-dark" %>
+            <div class="col-10">
+               <%= f.text_field :name, class: "form-control shadow rounded", placeholder: "Enter your hotel name"%>
+            </div>
+         </div>
+         <div class="form-group row">
+            <%= f.label :description, class: "col-2 col-form-label text-dark" %>
+            <div class="col-10">
+               <%= f.text_field :description,class: "form-control shadow rounded", placeholder: "Enter hotel description" %>
+            </div>
+         </div>
+         <div class="form-group row">
+            <%= f.label :address, "address", class: "col-2 col-form-label text-dark" %>
+            <div class="col-10">
+               <%= f.text_field :address,class: "form-control shadow rounded", placeholder: "Enter hotel address" %>
+            </div>
+         </div>
+         <div class="form-group row">
+            <%= f.label :price_per_room, "Price Per Room", class: "col-2 col-form-label text-dark" %>
+            <div class="col-10">
+               <%= f.number_field :price_per_room,class: "form-control shadow rounded", placeholder: "Enter price for each room" %>
+            </div>
+         </div>
+
+         <div class="form-group row justify-content-center">
+            <%= f.label :ac, "AC", class: "col-form-label text-dark" %>
+            <div class="col-1">
+               <%= f.check_box :ac,class: "form-control shadow rounded" %>
+            </div>
+            <%= f.label :wifi, "Wifi", class: "col-form-label text-dark" %>
+            <div class="col-1">
+               <%= f.check_box :wifi,class: "form-control shadow rounded"%>
+            </div>
+            <%= f.label :parking, "Parking", class: "col-form-label text-dark" %>
+            <div class="col-1">
+               <%= f.check_box :parking,class: "form-control shadow rounded"%>
+            </div>
+         </div>
+
+         <div class="form-group row">
+            <%= f.label :image, "Add Image", class: "col-2 col-form-label text-dark"  %>
+            <div class="col-4">
+               <%= f.file_field :image %>
+            </div>
+         </div>
+         <div class="form-group row justify-content-center">
+            <%= f.submit "Submit hotel info", class: "btn btn-outline-dark btn-lg col-3" %>
+         </div>
+      <% end %>
+   </div>
+</div>

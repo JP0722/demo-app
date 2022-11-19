@@ -1,0 +1,36 @@
+
+<div>
+	<div class="hotel-cover-pic">
+		<% if @hotel.image.attached? %>
+    		<image src="<%=(url_for(@hotel.image))%>">
+    	<% else %>
+    		<img class="card-img-left" src="..." alt= <%= @hotel.name %>>
+    	<% end %>
+	</div>
+	<div class="bg-light text-dark pt-2 pl-2">
+		<h2> <%= @hotel.name %></h2>
+		<h5> <%= @hotel.address %> </h5>
+	</div>
+	<div class="bg-white pt-2 pl-2">
+		<h4> <b> Description </b></h4>
+		<p> <%= @hotel.description %> </p>
+	</div>
+	<div class="bg-white pt-2 pl-2">
+		<h4> <b> Amenities </b></h4>
+		<% if @hotel.ac %>
+			<%= fa_icon "ac" %>
+    		<span class="badge badge-secondary">AC</span>
+    	<% end %>
+    	<% if @hotel.wifi %>
+    		<%= fa_icon "wifi" %>
+    		<span class="badge badge-secondary">WIFI</span>
+    	<% end %>
+    	<% if @hotel.parking %>
+    		<%= fa_icon "parking" %>
+    		<span class="badge badge-secondary">Parking</span>
+    	<% end %>
+	</div>
+	<div>
+		<%= link_to "Delete this space", hotel_path(@hotel), data: { confirm: "Are you sure?" }, class: 'btn btn-danger', method: :delete %>
+	</div>
+</div>

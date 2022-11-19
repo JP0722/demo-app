@@ -1,0 +1,71 @@
+<div class="m-4 p-2">
+	<div class="search-area">
+
+		<%= form_tag hotels_path, method: :get do %>
+			<div class="form-group row">
+				<div class="col-sm-9 no-right-padding">
+					<%= text_field_tag :name, params[:name], placeholder:"Enter hotel information to search", autofocus: true, class: "form-control form-control-lg" %>
+				</div>
+				<div class="col-sm-3 no-left-padding">
+					<%= button_tag type: :submit, class: 'btn btn-info' do %>
+						<%= fa_icon 'search 2x' %>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+
+	<div class="text-center apple_pagination">
+    	<%= will_paginate @hotels, :container => false %>
+  	</div>
+	<% @hotels.each do |hotel| %>
+		<div class="container">
+			<div class="card mt-4" class="col-12">
+			  <div class="card-header">
+			  	<%= hotel.name %>
+			  </div>
+			  <div class="card-body">
+			  	<div class="row">
+				    <div class="col-4">
+				    	<% if hotel.image.attached? %>
+				    		<image src="<%=(url_for(hotel.image))%>" height = 100% width = 100%>
+				    	<% else %>
+				    		<img class="card-img-left" src="..." alt= <%= hotel.name %>>
+				    	<% end %>
+				  	</div>
+				  	<div class="col-8">
+				  		<div class="hotel-description">
+				    		<b> Description:- </b> <%= hotel.description %>
+				    	</div>
+				    	<div class="hotel-address">
+				    		<b> Address:- </b> <%= hotel.address%>
+				    	</div>
+				    	<div class="hotel-tags">
+					    	<% if hotel.ac %>
+					    		<span class="badge badge-secondary">AC</span>
+					    	<% end %>
+					    	<% if hotel.wifi %>
+					    		<span class="badge badge-secondary">WIFI</span>
+					    	<% end %>
+					    	<% if hotel.parking %>
+					    		<span class="badge badge-secondary">Parking</span>
+					    	<% end %>
+				    	</div>
+				    	<div class="hotel-price">
+				    		<b> Cost per Day/Night:- </b><%= hotel.price_per_room %>
+				    	</div>
+
+				    	<div class="hotel-details-button">
+				    		<%= link_to "More info", hotel_path(hotel), class: 'btn btn-info' %>
+				    	</div>
+					</div>
+				</div>
+				<div class="card-footer text-muted">
+	              <small>Created <%= time_ago_in_words(hotel.created_at) %> ago</small>
+	              <small> Today's date <%= Date.today %></small>
+	            </div>
+			  </div>
+			</div>
+		</div>
+	<% end %>
+</div>

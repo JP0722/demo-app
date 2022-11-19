@@ -1,4 +1,9 @@
 <div class="container">
-	<h1>Need to book a hotel room ?</h1>
-	<p>Signup with us....</p>
+	<% if logged_in? %>
+		<h1>Going on a trip ?</h1>
+		<p>Book a hotel from us, at best rates available on market..</p>
+	<% else %>
+		<h1>Need to book a room/space ?</h1>
+		<p>Signup with us..</p>
+	<% end %>
 </div>

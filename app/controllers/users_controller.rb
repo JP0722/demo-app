@@ -10,9 +10,37 @@ class UsersController < ApplicationController
 		if @user.save
 			session[:user_id] = @user.id
 			flash[:notice] = "#{@user.name} Signed up successfully"
+			begin
+				UserMailer.welcome_email(@user).deliver_now
+			rescue => e
+				puts "Some error while sending the welcome mail #{e}"
+			end
 			redirect_to root_path
 		else
 			render 'new'
+		end
+	end
+
+	def show
+		@user = User.find(params[:id])
+		@user_hotels = @user.hotels
+	end
+
+	def show_hotels
+		@hotels = current_user.hotels
+	end
+
+	def edit
+		@user = User.find(params[:id])
+	end
+
+	def update
+		@user = User.find(params[:id])
+		if @user.update(user_params)
+			flash[:notice] = 'User dataUpdated successfully'
+			redirect_to user_path(@user)
+		else
+			render 'edit'
 		end
 	end
 
