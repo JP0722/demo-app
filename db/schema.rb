@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_11_21_084042) do
+ActiveRecord::Schema.define(version: 2022_11_22_101920) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -40,6 +40,19 @@ ActiveRecord::Schema.define(version: 2022_11_21_084042) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "bookings", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "hotel_id"
+    t.date "from_date"
+    t.date "to_date"
+    t.integer "price_per_room"
+    t.integer "total_cost"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hotel_id"], name: "index_bookings_on_hotel_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
   create_table "hotels", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -51,6 +64,8 @@ ActiveRecord::Schema.define(version: 2022_11_21_084042) do
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.date "available_from_date"
+    t.date "available_to_date"
     t.index ["user_id"], name: "index_hotels_on_user_id"
   end
 

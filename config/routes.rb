@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  get 'booking/new'
   get 'pages/home'
   root 'welcome#index'
   resources :users , except: [:new]
   resources :hotels
+  resources :bookings
   get 'signup', to: 'users#new'
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'

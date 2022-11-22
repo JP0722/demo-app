@@ -15,3 +15,4 @@ ActiveStorage.start()
 import "bootstrap"
 
 console.log('something')
+import "controllers"

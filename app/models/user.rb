@@ -13,5 +13,6 @@ class User < ApplicationRecord
 
 	has_many :hotels, dependent: :destroy
 	has_many :reviews, dependent: :destroy
+	has_many :bookings, dependent: :destroy
 	has_secure_password
 end

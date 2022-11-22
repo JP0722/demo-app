@@ -6,6 +6,7 @@ class HotelsController < ApplicationController
 
 	def new
 		@hotel = Hotel.new
+		@booking = Booking.new
 	end
 
 	def show
@@ -25,6 +26,7 @@ class HotelsController < ApplicationController
 
 	def create
 		@hotel = Hotel.new(hotel_params)
+		print_debug params
 		@hotel.user_id = current_user.id
 		if @hotel.save
 			flash[:notice] = "Hotel info has been successfully updated"
@@ -52,7 +54,8 @@ class HotelsController < ApplicationController
 	end
 
 	def hotel_params
-		params.require(:hotel).permit(:name, :description, :address, :price_per_room, :ac, :wifi, :parking, :image)
+		params.require(:hotel).permit(:name, :description, :address, :price_per_room, 
+									   :ac, :wifi, :parking, :image, :available_from_date, :available_to_date)
 	end
 
 	def required_same_user

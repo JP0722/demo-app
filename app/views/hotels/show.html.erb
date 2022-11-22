@@ -12,8 +12,30 @@
 	    		<img class="card-img-left" src="..." alt= <%= @hotel.name %>>
 	    	<% end %>
 		</div>
-		<div class="col m-2 bg-dark" style="height: 400px;">
-			<%= f.text_field :start_date, "data-provide" => 'datepicker' %>
+		<div class="col m-2" style="height: 400px;">
+			<%= form_with(model: @booking, local: true, data: { turbo: false }) do |f| %>
+				<div class="form-group justify-content-center">
+	            <%= f.label :from_date, "From:-", class: "col-2 col-form-label text-dark" %>
+	            <%= f.text_field :from_date, 
+	               data: {
+	                 controller: "flatpickr",
+	                 flatpickr_min_date: Time.zone.now,
+	                 flatpickr_max_date: Time.zone.now + 60.days,
+	                 flatpickr_disable: @hotel.unavailable_dates
+	               } %>
+	               <br>
+	            <%= f.label :to_date, "To: ", class: "col-2 col-form-label text-dark" %>
+	           <%= f.text_field :to_date,
+	               data: {
+	                 controller: "flatpickr",
+	                 flatpickr_min_date: Time.zone.now,
+	                 flatpickr_max_date: Time.zone.now + 60.days,
+	                 flatpickr_disable: @hotel.unavailable_dates
+	               } %>
+	         	</div>
+	         	<h4> <%= f.label "Cost per day:-", class: "col-form-label text-dark" %> 
+	         	<%= f.label @hotel.price_per_room, class: "col-form-label text-dark" %> </h4>
+         	<% end %>
 		</div>
 	</div>
 	<div class="bg-white pt-2 pl-2">

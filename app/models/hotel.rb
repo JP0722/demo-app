@@ -7,6 +7,14 @@ class Hotel < ApplicationRecord
 	validates :address, presence: true, length: {minimum:3, maximum: 400}
 
 	has_many :reviews, dependent: :destroy
+	has_many :bookings, dependent: :destroy
+
+    
+    def unavailable_dates
+	    bookings.pluck(:from_date, :to_date).map do |range|
+	      { from: range[0], to: range[1] }
+	    end
+  	end
 
 	def self.basic_search(param)
 		param.strip!
