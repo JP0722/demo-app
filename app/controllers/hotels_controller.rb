@@ -9,6 +9,8 @@ class HotelsController < ApplicationController
 	end
 
 	def show
+		@reviews = Review.where(hotel_id: params[:id])
+		@rating_avg = Review.where(hotel_id: params[:id]).average(:rating)
 	end
 
 	def index

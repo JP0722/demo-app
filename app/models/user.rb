@@ -12,5 +12,6 @@ class User < ApplicationRecord
 					  format: {with: VALID_EMAIL_REGEX}
 
 	has_many :hotels, dependent: :destroy
+	has_many :reviews, dependent: :destroy
 	has_secure_password
 end

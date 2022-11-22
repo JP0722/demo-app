@@ -1,0 +1,15 @@
+<%= form_with(scope: :review, url: reviews_path, local: true, data: { turbo: false }) do |f| %>
+   <div class="form-group row">
+      <div class="col-8">
+         <%= f.text_field :comment,class: "form-control shadow rounded", placeholder: "Enter your review here" %> 
+      </div>
+      <div class="col-4">
+         <%= f.number_field :rating,min: 1, max:5, class: "form-control shadow rounded", placeholder: "Enter your rating (1-5)" %> 
+      </div>
+      <%= f.hidden_field 'hotel_id', :value => @hotel.id %>
+      <%= f.hidden_field 'user_id', :value => current_user.id %>
+   </div>
+   <div class="form-group row ml-2">
+      <%= f.submit "Add review", class: "btn btn-outline-dark btn-sm col-2" %>
+   </div>
+<% end %>

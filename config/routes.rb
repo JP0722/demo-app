@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   get 'forgot', to: 'forgot#show'
   post 'forgot', to: 'forgot#sendmail'
+  resources :reviews, only: [:create, :destroy]
   get 'forgot/:id/reset', to: 'reset#show'
   post 'forgot/:id/reset', to: 'reset#update'
   get 'users/:id/hotels', to: 'users#show_hotels'

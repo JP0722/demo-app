@@ -11,7 +11,7 @@
           <%= link_to "Search Spaces", hotels_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
-          <%= link_to "Owned spaces",'users/'+current_user.id.to_s+'/hotels', class: 'nav-link' %>
+          <%= link_to "Owned spaces", {controller: "users", action: "show_hotels", id: current_user.id}, class: "nav-link" %>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

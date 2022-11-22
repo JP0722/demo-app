@@ -1,15 +1,20 @@
 
 <div>
-	<div class="hotel-cover-pic">
-		<% if @hotel.image.attached? %>
-    		<image src="<%=(url_for(@hotel.image))%>">
-    	<% else %>
-    		<img class="card-img-left" src="..." alt= <%= @hotel.name %>>
-    	<% end %>
-	</div>
-	<div class="bg-light text-dark pt-2 pl-2">
+	<div class="bg-dark text-light pt-2 pl-2 pb-2">
 		<h2> <%= @hotel.name %></h2>
 		<h5> <%= @hotel.address %> </h5>
+	</div>
+	<div class="row">
+		<div class="col mt-2">
+			<% if @hotel.image.representable? %>
+	    		<%= image_tag(@hotel.image, height: 400, width: 600) %>
+	    	<% else %>
+	    		<img class="card-img-left" src="..." alt= <%= @hotel.name %>>
+	    	<% end %>
+		</div>
+		<div class="col m-2 bg-dark" style="height: 400px;">
+			<%= f.text_field :start_date, "data-provide" => 'datepicker' %>
+		</div>
 	</div>
 	<div class="bg-white pt-2 pl-2">
 		<h4> <b> Description </b></h4>
@@ -30,7 +35,35 @@
     		<span class="badge badge-secondary">Parking</span>
     	<% end %>
 	</div>
+	<hr>
+	<div class="hotel-reviews pt-2 pl-2 col-8">
+		<% if @hotel.user_id != current_user.id %>
+			<%= render 'comments_form' %>
+		<% end %>
+		<% if @reviews.count > 0 %>
+			<p> Rating:- <b><%= @rating_avg.round(1) %></b> (<%= @reviews.count %>)</p>
+			Comments:-
+			<% @reviews.each do |review| %>
+				<div class="card mb-2">
+					<div class="card-body">
+						 <% if !review.comment.strip.empty? %>
+						 	<b> <%= review.comment %> </b>
+						 	<span class="float-right text-dark"> (<%= review.rating %>)</span>
+						 <% end %>
+						 <div class="text-secondary">
+							<h7> By <%= review.user.name %> </h7>
+						</div>
+						<% if current_user.id == review.user_id %>
+						 	<%= link_to "Delete", review_path(review), method: :delete %>
+						 <% end %>
+			 		</div>
+				</div>
+			<% end %>
+		<% end %>
+	</div>
 	<div>
+		<% if @hotel.user_id == current_user.id %>
 		<%= link_to "Delete this space", hotel_path(@hotel), data: { confirm: "Are you sure?" }, class: 'btn btn-danger', method: :delete %>
+		<% end %>
 	</div>
 </div>

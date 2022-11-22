@@ -6,6 +6,8 @@ class Hotel < ApplicationRecord
 	validates :price_per_room, presence: true, length: {maximum: 12}
 	validates :address, presence: true, length: {minimum:3, maximum: 400}
 
+	has_many :reviews, dependent: :destroy
+
 	def self.basic_search(param)
 		param.strip!
 	    to_send_back = (address_matches(param) + name_matches(param) + description_matches(param)).uniq
