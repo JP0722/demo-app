@@ -2,9 +2,13 @@
 <h3 class="mr-2 mt-2"> Properties you own </h3>
 <%= link_to "Add new property", new_hotel_path, class:'btn btn-primary float-right' %>
 <% @hotels.each do |hotel| %>
-  <div class="bg-dark text-light mt-4 p-4 col-6">
-    <h4> <%= link_to hotel.name, hotel_path(hotel) %></h4>
-    <p> <%= hotel.address %></p>
-    <small>Created <%= time_ago_in_words(hotel.created_at) %> ago</small>
+  <div class="card col-6 p-4 mb-2 bg-secondary bg-gradient text-white">
+    <div class="card-block">
+      <h4> <%= link_to hotel.name, hotel_path(hotel), class: 'text-white'%></h4>
+      <p> <b> <%= hotel.address %> </b></p>
+      <small>Created <%= time_ago_in_words(hotel.created_at) %> ago</small>
+      <br>
+      <%= link_to "Bookings", {controller: "hotels", action: "show_bookings", id: hotel.id}, class:'btn btn-primary mt-2' %>
+    </div> 
   </div>
 <% end %> 

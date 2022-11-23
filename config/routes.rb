@@ -15,4 +15,6 @@ Rails.application.routes.draw do
   get 'forgot/:id/reset', to: 'reset#show'
   post 'forgot/:id/reset', to: 'reset#update'
   get 'users/:id/hotels', to: 'users#show_hotels'
+  get 'users/:id/bookings', to: 'users#show_bookings'
+  get 'hotels/:id/bookings', to: 'hotels#show_bookings'
 end

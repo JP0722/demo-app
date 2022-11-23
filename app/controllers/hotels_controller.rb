@@ -1,17 +1,17 @@
 class HotelsController < ApplicationController
 
-	before_action :set_hotel, only: [:show, :edit, :update, :destroy]
+	before_action :set_hotel, only: [:show, :edit, :update, :destroy, :show_bookings]
 	before_action :required_user
-	before_action :required_same_user, only: [:edit, :update, :destroy]
+	before_action :required_same_user, only: [:edit, :update, :destroy, :show_bookings]
 
 	def new
 		@hotel = Hotel.new
-		@booking = Booking.new
 	end
 
 	def show
 		@reviews = Review.where(hotel_id: params[:id])
 		@rating_avg = Review.where(hotel_id: params[:id]).average(:rating)
+		@booking = Booking.new
 	end
 
 	def index
@@ -20,7 +20,7 @@ class HotelsController < ApplicationController
 			@hotels = Hotel.where("lower(name) like ? OR lower(address) like ? OR lower(description like ?)", 
 									"%#{params[:name].downcase}%", "%#{params[:name].downcase}%", "%#{params[:name].downcase}%").paginate(page: params[:page], per_page: 3)
 		else
-			@hotels = Hotel.paginate(page: params[:page], per_page: 3)
+			@hotels = Hotel.order("created_at DESC").paginate(page: params[:page], per_page: 3)
 		end
 	end
 
@@ -36,6 +36,10 @@ class HotelsController < ApplicationController
 		end
 	end
 
+	def show_bookings
+		@bookings = @hotel.bookings.order("created_at DESC")
+	end
+
 	def edit
 	end
 
@@ -46,6 +50,8 @@ class HotelsController < ApplicationController
 		@hotel.destroy
 		redirect_to user_path(current_user)
 	end
+
+
 
 	private
 

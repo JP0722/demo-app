@@ -1,41 +1,57 @@
 
 <div>
-	<div class="bg-dark text-light pt-2 pl-2 pb-2">
+	<div class="badge-secondary text-light pt-2 pl-3 pb-2" style="border-radius: 10px;">
 		<h2> <%= @hotel.name %></h2>
 		<h5> <%= @hotel.address %> </h5>
+		<% if current_user.id == @hotel.user_id %>
+			<h6> <span class="badge badge-info"> You own this space </span></h6>
+		<% end %>
 	</div>
 	<div class="row">
-		<div class="col mt-2">
+		<div class="col m-2" style="border-radius: 10px">
 			<% if @hotel.image.representable? %>
 	    		<%= image_tag(@hotel.image, height: 400, width: 600) %>
 	    	<% else %>
 	    		<img class="card-img-left" src="..." alt= <%= @hotel.name %>>
 	    	<% end %>
 		</div>
-		<div class="col m-2" style="height: 400px;">
-			<%= form_with(model: @booking, local: true, data: { turbo: false }) do |f| %>
-				<div class="form-group justify-content-center">
-	            <%= f.label :from_date, "From:-", class: "col-2 col-form-label text-dark" %>
-	            <%= f.text_field :from_date, 
-	               data: {
-	                 controller: "flatpickr",
-	                 flatpickr_min_date: Time.zone.now,
-	                 flatpickr_max_date: Time.zone.now + 60.days,
-	                 flatpickr_disable: @hotel.unavailable_dates
-	               } %>
-	               <br>
-	            <%= f.label :to_date, "To: ", class: "col-2 col-form-label text-dark" %>
-	           <%= f.text_field :to_date,
-	               data: {
-	                 controller: "flatpickr",
-	                 flatpickr_min_date: Time.zone.now,
-	                 flatpickr_max_date: Time.zone.now + 60.days,
-	                 flatpickr_disable: @hotel.unavailable_dates
-	               } %>
-	         	</div>
-	         	<h4> <%= f.label "Cost per day:-", class: "col-form-label text-dark" %> 
-	         	<%= f.label @hotel.price_per_room, class: "col-form-label text-dark" %> </h4>
-         	<% end %>
+		<div class="col mt-2" style="height: 400px;">
+			<div class="card">
+				<div class="card-body">
+					<%= form_with(model: @booking, local: true, data: { turbo: false }) do |f| %>
+						<div class="form-group justify-content-center">
+			            <%= f.label :from_date, "From:", class: "col-2 col-form-label text-dark" %>
+			            <%= f.text_field :from_date, 
+			               data: {
+			                 controller: "flatpickr",
+			                 flatpickr_min_date: Time.zone.now,
+			                 flatpickr_max_date: @hotel.available_to_date,
+			                 flatpickr_disable: @hotel.unavailable_dates
+			               } %>
+			               <br>
+			            <%= f.label :to_date, "To: ", class: "col-2 col-form-label text-dark" %>
+			           <%= f.text_field :to_date,
+			               data: {
+			                 controller: "flatpickr",
+			                 flatpickr_min_date: Time.zone.now,
+			                 flatpickr_max_date: @hotel.available_to_date,
+			                 flatpickr_disable: @hotel.unavailable_dates
+			               } %>
+			         	</div>
+			         	<%#<%= Time.zone.now %>
+			         	<%#<%= @hotel.available_from_date %>
+			         	<%#<%= @hotel.unavailable_dates %>
+			         	<%= f.hidden_field 'hotel_id', :value => @hotel.id %>
+      					<%= f.hidden_field 'user_id', :value => current_user.id %>
+			         	<p> <b> <%= f.label "Cost per day:-", class: "col-form-label text-dark" %> 
+			         		<%= f.label @hotel.price_per_room, class: "col-form-label text-dark" %> </b>
+			         	</p>
+			         	<div class="form-group row justify-content-center">
+		            		<%= f.submit "Book Now", class: "btn btn-outline-dark btn-lg col-3" %>
+		         		</div>
+		         	<% end %>
+		         </div>
+	         </div>
 		</div>
 	</div>
 	<div class="bg-white pt-2 pl-2">
@@ -63,14 +79,14 @@
 			<%= render 'comments_form' %>
 		<% end %>
 		<% if @reviews.count > 0 %>
-			<p> Rating:- <b><%= @rating_avg.round(1) %></b> (<%= @reviews.count %>)</p>
+			<p> Rating:- <h5> <b> <%= @rating_avg.round(1) %> <%= fa_icon "star" %></b> (<%= @reviews.count %>)</p> </h5>
 			Comments:-
 			<% @reviews.each do |review| %>
 				<div class="card mb-2">
 					<div class="card-body">
 						 <% if !review.comment.strip.empty? %>
 						 	<b> <%= review.comment %> </b>
-						 	<span class="float-right text-dark"> (<%= review.rating %>)</span>
+						 	<span class="float-right text-dark"> (<%= review.rating %> <%= fa_icon "star" %>)</span>
 						 <% end %>
 						 <div class="text-secondary">
 							<h7> By <%= review.user.name %> </h7>

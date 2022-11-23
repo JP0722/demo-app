@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+    
+    before_action :required_user, only: [:show_hotels, :show_bookings, :update, :edit]
 
 	def new
 		@user = User.new
@@ -28,6 +30,10 @@ class UsersController < ApplicationController
 
 	def show_hotels
 		@hotels = current_user.hotels
+	end
+
+	def show_bookings
+		@bookings = current_user.bookings
 	end
 
 	def edit

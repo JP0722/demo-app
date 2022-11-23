@@ -1,0 +1,14 @@
+<h4 class="mt-3"> Your booking history </h4>
+
+<% @bookings.each do |booking| %>
+	<div class="card col-8 mt-2">
+		<div class="card-body">
+			<b> Booking ID: </b> <%= booking.id %>
+			<br>
+			<b> From: </b> <%= booking.from_date %>
+			<b> To: </b> <%= booking.to_date %>
+			<br>
+			<b> Total cost: </b> <%= booking.total_cost %>
+		</div>
+	</div>
+<% end %>

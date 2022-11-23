@@ -20,6 +20,7 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <%= link_to "Show profile", user_path(current_user), class: 'dropdown-item' %>
             <%= link_to "Edit profile", edit_user_path(current_user), class: 'dropdown-item' %>
+            <%= link_to "My bookings", {controller: "users", action: "show_bookings", id: current_user.id}, class: "dropdown-item" %>
             <div class="dropdown-divider"></div>
             <%= link_to "Delete profile", '#', class: 'dropdown-item' %>
           </div>
