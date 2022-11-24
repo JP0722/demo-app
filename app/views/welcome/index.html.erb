@@ -1,9 +1,30 @@
-<div class="container">
+<div style="margin: 2%;">
 	<% if logged_in? %>
-		<h1>Going on a trip ?</h1>
-		<p>Book a hotel from us, at best rates available on market..</p>
+		<div class="row">
+			<div class="col">
+				<%= image_tag "high_res6.jpeg", height: 500, width: 700 %>
+			</div>
+			<div class="col">
+				<div style="margin-top: 10%">
+					<h1>Going on a trip ?</h1>
+					<p>Book a space from us, at best rates available on market..</p>
+					<%= link_to "Search Spaces", hotels_path, class: 'btn bg-white' %>
+				</div>
+			</div>
+		</div>
 	<% else %>
-		<h1>Need to book a room/space ?</h1>
-		<p>Signup with us..</p>
+		<div class="row">
+			<div class="col">
+				<%= image_tag "high_res7.jpeg", height: 500, width: 700 %>
+			</div>
+			<div class="col">
+				<div style="margin-top: 10%">
+					<h1>Need to book a room/space ?</h1>
+					<p>Signup with us..</p>
+					<%= link_to "Login", login_path, class: 'btn bg-white' %> | 
+					<%= link_to "Signup", signup_path, class: 'btn bg-white' %>
+				</div>
+			</div>
+		</div>
 	<% end %>
 </div>

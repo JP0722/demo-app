@@ -1,14 +1,30 @@
 
 <h3 class="mr-2 mt-2"> Properties you own </h3>
-<%= link_to "Add new property", new_hotel_path, class:'btn btn-primary float-right' %>
+<%= link_to "Add new property", new_hotel_path, class:'btn main-bg main-text-color float-right btn-main-bg' %>
+<% if @hotels.length == 0 %>
+  <p class="mt-4 text-secondary"> <b> You properties list is empty </b> </p> 
+<% end %>
+
 <% @hotels.each do |hotel| %>
-  <div class="card col-6 p-4 mb-2 bg-secondary bg-gradient text-white">
+  <div class="card col-10 p-4 mb-2 second-text-color">
     <div class="card-block">
-      <h4> <%= link_to hotel.name, hotel_path(hotel), class: 'text-white'%></h4>
-      <p> <b> <%= hotel.address %> </b></p>
-      <small>Created <%= time_ago_in_words(hotel.created_at) %> ago</small>
-      <br>
-      <%= link_to "Bookings", {controller: "hotels", action: "show_bookings", id: hotel.id}, class:'btn btn-primary mt-2' %>
+      <div class="row">
+        <div class="col-4 mr-2">
+            <% if hotel.image.attached? %>
+              <image src="<%=(url_for(hotel.image))%>" height = 150 width = 250>
+            <% else %>
+              <img class="card-img-left" src="..." alt= <%= hotel.name %>>
+            <% end %>
+        </div>  
+        <div class="col-7">
+          <h3> <%= link_to hotel.name, hotel_path(hotel), class: 'second-text-color'%></h3>
+          <p> <b> <%= hotel.address %> </b></p>
+          <small>Created <%= time_ago_in_words(hotel.created_at) %> ago</small>
+          <br>
+          <%= link_to "Bookings", {controller: "hotels", action: "show_bookings", id: hotel.id}, class:'btn btn-outline-dark mt-2' %>
+          <%= link_to "Edit property", edit_hotel_path(hotel), class:'btn btn-outline-dark mt-2 ml-2' %>
+        </div>
+      </div>
     </div> 
   </div>
 <% end %> 

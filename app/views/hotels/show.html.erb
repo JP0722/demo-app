@@ -1,53 +1,52 @@
 
 <div>
-	<div class="badge-secondary text-light pt-2 pl-3 pb-2" style="border-radius: 10px;">
+	<div class="second-bg second-text-color pt-2 pl-3 pb-2 mt-2" style="border-radius: 10px;">
 		<h2> <%= @hotel.name %></h2>
 		<h5> <%= @hotel.address %> </h5>
 		<% if current_user.id == @hotel.user_id %>
-			<h6> <span class="badge badge-info"> You own this space </span></h6>
+			<h6> <span class="badge badge-dark"> You own this space </span></h6>
+		<% else %>
+			<h6> <span class="badge badge-dark"> Owned by <%= @hotel_owner.name %></span>
 		<% end %>
 	</div>
 	<div class="row">
-		<div class="col m-2" style="border-radius: 10px">
+		<div class="col-8 mt-2" style="border-radius: 10px">
 			<% if @hotel.image.representable? %>
-	    		<%= image_tag(@hotel.image, height: 400, width: 600) %>
+	    		<%= image_tag(@hotel.image, height: 400, width: 750) %>
 	    	<% else %>
 	    		<img class="card-img-left" src="..." alt= <%= @hotel.name %>>
 	    	<% end %>
 		</div>
-		<div class="col mt-2" style="height: 400px;">
-			<div class="card">
-				<div class="card-body">
+		<div class="col-4 mt-2" style="height: 400px;">
+			<div class="card text-light" style="height: 400px; border: 1px solid #0B0C10;">
+				<div class="card-body mt-4">
 					<%= form_with(model: @booking, local: true, data: { turbo: false }) do |f| %>
 						<div class="form-group justify-content-center">
-			            <%= f.label :from_date, "From:", class: "col-2 col-form-label text-dark" %>
+			            <%= f.label :from_date, "From:", class: "col-2 col-form-label badge main-bg rounded mb-2 p-2" %>
 			            <%= f.text_field :from_date, 
 			               data: {
 			                 controller: "flatpickr",
-			                 flatpickr_min_date: Time.zone.now,
+			                 flatpickr_min_date: @min_available_date,
 			                 flatpickr_max_date: @hotel.available_to_date,
 			                 flatpickr_disable: @hotel.unavailable_dates
-			               } %>
+			               }, class:'col-6 rounded', placeholder:' Enter start date' %>
 			               <br>
-			            <%= f.label :to_date, "To: ", class: "col-2 col-form-label text-dark" %>
+			            <%= f.label :to_date, "To: ", class: "col-2 col-form-label badge main-bg rounded p-2" %>
 			           <%= f.text_field :to_date,
 			               data: {
 			                 controller: "flatpickr",
-			                 flatpickr_min_date: Time.zone.now,
+			                 flatpickr_min_date: @min_available_date ,
 			                 flatpickr_max_date: @hotel.available_to_date,
 			                 flatpickr_disable: @hotel.unavailable_dates
-			               } %>
+			               }, class:'col-6 rounded', placeholder:'Enter end date' %>
 			         	</div>
-			         	<%#<%= Time.zone.now %>
-			         	<%#<%= @hotel.available_from_date %>
-			         	<%#<%= @hotel.unavailable_dates %>
 			         	<%= f.hidden_field 'hotel_id', :value => @hotel.id %>
       					<%= f.hidden_field 'user_id', :value => current_user.id %>
-			         	<p> <b> <%= f.label "Cost per day:-", class: "col-form-label text-dark" %> 
-			         		<%= f.label @hotel.price_per_room, class: "col-form-label text-dark" %> </b>
+			         	<p> <b> <%= f.label "Cost per day:-", class: "col-4 col-form-label badge main-bg p-2" %> 
+			         		<%= f.label @hotel.price_per_room, class: "cost-font-style badge main-bg p-2" %> </b>
 			         	</p>
-			         	<div class="form-group row justify-content-center">
-		            		<%= f.submit "Book Now", class: "btn btn-outline-dark btn-lg col-3" %>
+			         	<div class="form-group row text-center">
+		            		<%= f.submit "Book Now", class: "btn ml-3 btn-outline-dark btn-lg" %>
 		         		</div>
 		         	<% end %>
 		         </div>
@@ -56,31 +55,32 @@
 	</div>
 	<div class="bg-white pt-2 pl-2">
 		<h4> <b> Description </b></h4>
-		<p> <%= @hotel.description %> </p>
+		<p> <%= simple_format(@hotel.description) %> </p>
 	</div>
 	<div class="bg-white pt-2 pl-2">
 		<h4> <b> Amenities </b></h4>
-		<% if @hotel.ac %>
-			<%= fa_icon "ac" %>
-    		<span class="badge badge-secondary">AC</span>
-    	<% end %>
-    	<% if @hotel.wifi %>
-    		<%= fa_icon "wifi" %>
-    		<span class="badge badge-secondary">WIFI</span>
-    	<% end %>
-    	<% if @hotel.parking %>
-    		<%= fa_icon "parking" %>
-    		<span class="badge badge-secondary">Parking</span>
-    	<% end %>
+		<h5>
+			<% if @hotel.ac %>
+				<%= fa_icon "air-conditioner" %>
+	    		<span class="badge badge-secondary m-2">AC</span>
+	    	<% end %>
+	    	<% if @hotel.wifi %>
+	    		<%= fa_icon "wifi" %>
+	    		<span class="badge badge-secondary m-2">WIFI</span> 
+	    	<% end %>
+	    	<% if @hotel.parking %>
+	    		<%= fa_icon "parking" %>
+	    		<span class="badge badge-secondary m-2">Parking</span>
+	    	<% end %>
+    	</h5>
 	</div>
 	<hr>
 	<div class="hotel-reviews pt-2 pl-2 col-8">
-		<% if @hotel.user_id != current_user.id %>
-			<%= render 'comments_form' %>
-		<% end %>
+		<%#<% if @hotel.user_id != current_user.id %>
+		<%#	<%= render 'comments_form' %>
+		<%# <% end %>
 		<% if @reviews.count > 0 %>
-			<p> Rating:- <h5> <b> <%= @rating_avg.round(1) %> <%= fa_icon "star" %></b> (<%= @reviews.count %>)</p> </h5>
-			Comments:-
+			<h5> <b> Rating & Reviews:- </b> </h5> <h4> <b> <%= @rating_avg.round(1) %> <%= fa_icon "star" %></b> </h4> <p> (<%= pluralize @reviews.count, "Rating" %> ) </p>
 			<% @reviews.each do |review| %>
 				<div class="card mb-2">
 					<div class="card-body">

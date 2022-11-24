@@ -11,7 +11,7 @@ class Hotel < ApplicationRecord
 
     
     def unavailable_dates
-	    bookings.pluck(:from_date, :to_date).map do |range|
+	    bookings.where(status: 'Booked').pluck(:from_date, :to_date).map do |range|
 	      { from: range[0], to: range[1] }
 	    end
   	end

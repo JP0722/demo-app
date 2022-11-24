@@ -10,7 +10,7 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class=<%= params[:controller] === "hotels" && params[:action] === "show"? "bg-white" : "second-bg" %>>
     <%= render 'layouts/navigation' %>
     <div class="container">
       <%= render 'layouts/messages' %>

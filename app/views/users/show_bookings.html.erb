@@ -1,14 +1,53 @@
-<h4 class="mt-3"> Your booking history </h4>
-
+<h4 class="mt-3 text-center"> Your booking history </h4>
+<div class="row justify-content-center">
 <% @bookings.each do |booking| %>
-	<div class="card col-8 mt-2">
+	<div class="card col-10 mt-2 shadow">
 		<div class="card-body">
-			<b> Booking ID: </b> <%= booking.id %>
+			<div class="row">
+				<div class="col-4">
+					<% if booking.hotel.image.attached? %>
+		              <image src="<%=(url_for(booking.hotel.image))%>" height = 150 width = 280>
+		            <% else %>
+		              <img class="card-img-left" src="..." alt= <%= hotel.name %>>
+		            <% end %>
+				</div>
+				<div class="col-8">
+					Booking ID: <b> <%= booking.id %> </b>
+					<br>
+					 Space name:- <b> <%= booking.hotel.name %> </b>
+					<br>
+						 Space address:- <b> <%= booking.hotel.address %> </b>
+						 <br>
+					 From: <b> <%= booking.from_date %> </b>
+					 To: <b> <%= booking.to_date %> </b>
+					<br>
+					<b> Total cost: </b> <%= booking.total_cost %>
+					<br>
+				</div>
+			</div>
+			<% if Time.zone.now < booking.from_date %>
+				<%= link_to 'Cancel booking', booking_path(booking), class: 'btn btn-sm btn-danger mt-2', method: :delete %>
+			<% else %>
+				<hr>
+				<%= form_with(scope: :review, url: reviews_path, local: true, data: { turbo: false }) do |f| %>
+				   <div class="form-group row">
+				      <div class="col-8">
+				         <%= f.text_field :comment,class: "form-control shadow rounded", placeholder: "Enter your review here" %> 
+				      </div>
+				      <div class="col-4">
+				         <%= f.number_field :rating,min: 1, max:5, class: "form-control shadow rounded", placeholder: "Enter your rating (1-5)" %> 
+				      </div>
+				      <%= f.hidden_field 'hotel_id', :value => booking.hotel.id %>
+				      <%= f.hidden_field 'user_id', :value => current_user.id %>
+				   </div>
+				   <div class="form-group row ml-2">
+				      <%= f.submit "Add review", class: "btn btn-outline-dark btn-sm col-2" %>
+				   </div>
+				<% end %>
+			<% end %>
 			<br>
-			<b> From: </b> <%= booking.from_date %>
-			<b> To: </b> <%= booking.to_date %>
-			<br>
-			<b> Total cost: </b> <%= booking.total_cost %>
+			<small>Booked on:- <%= booking.created_at %></small>
 		</div>
 	</div>
 <% end %>
+</div>

@@ -5,8 +5,33 @@
 	width: 50%;
 }
 
+.cost-font-style {
+  font-size: 1.5rem;
+}
+
+.navbar-brand{
+  font-size: 2rem;
+}
+
+.btn-main-bg:hover {
+  color:black;
+  background-color: white;
+}
+
+.navbar-brand:hover{
+  color: white;
+}
+
+.nav-link{
+  color: white
+}
+
+.nav-link:hover {
+  color: #66FCF1;
+}
+
 .navbar-bg-color {
-  background-color: #34eb67;
+  background-color: #0B0C10;
 }
 
 .hotel-description {
@@ -16,6 +41,21 @@
   text-overflow: ellipsis;
 }
 
+.main-bg {
+  background-color: #0B0C10;
+}
+
+.second-bg {
+  background-color: #66FCF1;
+}
+
+.main-text-color {
+  color: #66FCF1;
+}
+
+.second-text-color {
+  color: #0B0C10
+}
 
 
 /* Pagination styling */
@@ -67,7 +107,7 @@
     overflow: hidden; }
 
 .apple_pagination {
-  background: #f1f1f1;
+  background: #1f2833;
   border: 1px solid #e5e5e5;
   text-align: center;
   padding: 1em;
@@ -90,7 +130,7 @@
     text-shadow: rgba(255, 255, 255, 0.8) 1px 1px 1px; }
   .apple_pagination a {
     text-decoration: none;
-    color: black; }
+    color: #66fcf1; }
     .apple_pagination a:hover, .apple_pagination a:focus {
       text-decoration: underline; }
 

@@ -29,11 +29,12 @@ class UsersController < ApplicationController
 	end
 
 	def show_hotels
-		@hotels = current_user.hotels
+		@hotels = current_user.hotels.order("created_at DESC")
 	end
 
 	def show_bookings
-		@bookings = current_user.bookings
+		@bookings = current_user.bookings.order("created_at DESC")
+		
 	end
 
 	def edit

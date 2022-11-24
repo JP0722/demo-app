@@ -4,26 +4,26 @@
       <%= form_with(model: @hotel, local: true, data: { turbo: false }) do |f| %>
          <br>
          <div class="form-group row">
-            <%= f.label :name, class: "col-2 col-form-label text-dark" %>
-            <div class="col-10">
+            <%#<%= f.label :name, class: "col-2 col-form-label text-dark" %>
+            <div class="col-12">
                <%= f.text_field :name, class: "form-control shadow rounded", placeholder: "Enter your hotel name"%>
             </div>
          </div>
          <div class="form-group row">
-            <%= f.label :description, class: "col-2 col-form-label text-dark" %>
-            <div class="col-10">
-               <%= f.text_field :description,class: "form-control shadow rounded", placeholder: "Enter hotel description" %>
-            </div>
-         </div>
-         <div class="form-group row">
-            <%= f.label :address, "address", class: "col-2 col-form-label text-dark" %>
-            <div class="col-10">
+            <%#<%= f.label :address, "address", class: "col-2 col-form-label text-dark" %>
+            <div class="col-12">
                <%= f.text_field :address,class: "form-control shadow rounded", placeholder: "Enter hotel address" %>
             </div>
          </div>
          <div class="form-group row">
-            <%= f.label :price_per_room, "Price Per Room", class: "col-2 col-form-label text-dark" %>
-            <div class="col-10">
+            <%#<%= f.label :description, class: "col-2 col-form-label text-dark" %>
+            <div class="col-12">
+               <%= f.text_area :description,class: "form-control shadow rounded", placeholder: "Enter hotel description", size:'60 * 10' %>
+            </div>
+         </div>
+         <div class="form-group row">
+            <%#<%= f.label :price_per_room, "Price Per Room", class: "col-2 col-form-label text-dark" %>
+            <div class="col-12">
                <%= f.number_field :price_per_room,class: "form-control shadow rounded", placeholder: "Enter price for each room" %>
             </div>
          </div>
@@ -43,28 +43,28 @@
             </div>
          </div>
 
-         <div class="form-group justify-content-center">
-            <%= f.label :available_from_date, "Availble from: ", class: "col-form-label text-dark" %>
-            <%= f.text_field :available_from_date, 
+         <div class="form-group row ml-1">
+            <%= f.label :available_from_date, "Available Dates:- ", class: "col-2 col-form-label text-white badge-dark mr-2 rounded ml-1" %>
+
+            <%= fa_icon "calendar 2x" %>
+            <%= f.text_field :available_from_date, class: 'form-control shadow rounded col-4 mr-3 ml-1',
                data: {
                  controller: "flatpickr",
                  flatpickr_min_date: Time.zone.now,
-                 flatpickr_max_date: Time.zone.now + 60.days
-               } %>
-            <%= f.label :available_to_date, "to: ", class: "col-form-label text-dark" %>
-           <%= f.text_field :available_to_date,
+                 flatpickr_max_date: Time.zone.now + 90.days
+               }, placeholder:'Available From' %>
+           <%# <%= f.label :available_to_date, "to: ", class: "col-1 col-form-label text-dark" %>
+           <%= f.text_field :available_to_date, class: 'form-control shadow rounded col-4 ',
                data: {
                  controller: "flatpickr",
                  flatpickr_min_date: Time.zone.now,
-                 flatpickr_max_date: Time.zone.now + 60.days
-               } %>
+                 flatpickr_max_date: Time.zone.now + 90.days
+               }, placeholder:'Available till' %>
          </div>
 
-         <div class="form-group row">
-            <%= f.label :image, "Add Image", class: "col-2 col-form-label text-dark"  %>
-            <div class="col-4">
-               <%= f.file_field :image %>
-            </div>
+         <div class="form-group row ml-1">
+               <%= f.label :image, "Add Image", class: "col-2 col-form-label text-white badge-dark mr-2 rounded"%>
+               <%= f.file_field :image, class: 'form-control shadow rounded col-6'%>
          </div>
          <div class="form-group row justify-content-center">
             <%= f.submit "Submit hotel info", class: "btn btn-outline-dark btn-lg col-3" %>

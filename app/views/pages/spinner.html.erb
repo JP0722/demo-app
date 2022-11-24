@@ -1,0 +1,35 @@
+
+<%= javascript_pack_tag 'spinner' %>
+
+<div class="text-center">
+	<div id="status"> 
+		<h3> Payment in progress..... </h3>
+		<div class="spinner-border text-center" role="status" style="height: 60px; width: 60px;">
+		</div>
+	</div>
+	<div id="booking-card">
+		<div class="card col-8 mt-2 shadow">
+			<div class="card-header">
+				<h3>Boking confirmed </h3>
+			</div>
+			<div class="card-body">
+				Booking ID: <b> <%= @booking.id %> </b>
+				<br>
+				 Space name:- <b> <%= @booking.hotel.name %> </b>
+				<br>
+				 Space address:- <b> <%= @booking.hotel.address %> </b>
+				 <br>
+				 From: <b> <%= @booking.from_date %> </b>
+				 To: <b> <%= @booking.to_date %> </b>
+				<br>
+				<b> Total cost: </b> <%= @booking.total_cost %>
+				<br>
+				<small>Booked on:- <%= @booking.created_at %></small>
+			</div>
+			<div class="card-footer">
+				<%= link_to "Return to bookings list", {controller: "users", action: "show_bookings", id: current_user.id}, class: "btn btn-outline-dark" %>
+			</div>
+		</div>		
+	</div>
+
+</div>

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
 			# This creates a new session
 			session[:user_id] = user.id
 			flash[:notice] = "#{user.name} logged in successfully"
-			redirect_to root_path
+			redirect_to hotels_path
 		else
 			flash.now[:alert] = "You have entered wrong login credentials, please try again"
 			render 'new'
@@ -19,6 +19,6 @@ class SessionsController < ApplicationController
 	def destroy
 		session[:user_id] = nil
 		flash[:notice] = "User successfully logged out"
-		redirect_to root_path
+		redirect_to login_path
 	end
 end

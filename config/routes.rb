@@ -17,4 +17,5 @@ Rails.application.routes.draw do
   get 'users/:id/hotels', to: 'users#show_hotels'
   get 'users/:id/bookings', to: 'users#show_bookings'
   get 'hotels/:id/bookings', to: 'hotels#show_bookings'
+  get 'payment', to:'pages#spinner'
 end
