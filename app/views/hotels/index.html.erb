@@ -14,7 +14,7 @@
 		<% end %>
 	</div>
 	<% @hotels.each do |hotel| %>
-		<div class="card mt-4 second-text-color" class="col-12">
+		<div class="card mt-4 second-text-color shadow" class="col-12">
 		  <div class="card-header">
 		  	<h5> <b> <%= hotel.name %> </b> </h5>
 		  </div>
@@ -47,7 +47,7 @@
 			    	</div>
 
 			    	<div class="hotel-details-button mt-2">
-			    		<%= link_to "More info", hotel_path(hotel), class: 'btn second-bg second-text-color' %>
+			    		<%= link_to "More info", hotel_path(hotel), class: 'btn btn-dark' %>
 			    	</div>
 				</div>
 			</div>

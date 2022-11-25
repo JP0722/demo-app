@@ -24,6 +24,9 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem "font-awesome-rails"
 gem 'will_paginate', '~> 3.3'
+gem "chartkick"
+gem "groupdate"
+gem 'twilio-ruby'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

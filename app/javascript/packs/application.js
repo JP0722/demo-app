@@ -13,6 +13,5 @@ Turbolinks.start()
 ActiveStorage.start()
 
 import "bootstrap"
-
-console.log('something')
 import "controllers"
+import "chartkick/chart.js"

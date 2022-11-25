@@ -49,6 +49,12 @@ class HotelsController < ApplicationController
 	end
 
 	def update
+		if params[:hotel][:available_from_date] > params[:hotel][:available_to_date]
+			flash.now[:alert] = "Available end date must be after available start date.."
+			render 'edit'
+			return
+		end
+
 		if @hotel.available_from_date < params[:hotel][:available_from_date].to_date
 			ranges = Booking.where("hotel_id = ? AND ((? < from_date AND from_date <= ?) OR (? < to_date AND to_date <= ?))",
 											@hotel.id, @hotel.available_from_date, params[:hotel][:available_from_date], @hotel.available_from_date, params[:hotel][:available_from_date])
@@ -106,6 +112,7 @@ class HotelsController < ApplicationController
 	def required_same_user
 		if !(current_user.id == @hotel.user_id)
 			flash[:alert] = 'You cannot perform this action'
+			redirect_to hotels_path
 		end
 	end
 

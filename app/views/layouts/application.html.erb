@@ -10,7 +10,8 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class=<%= params[:controller] === "hotels" && params[:action] === "show"? "bg-white" : "second-bg" %>>
+  <body class=<%= (params[:controller] === "hotels" && params[:action] === "show") || (
+                    params[:controller] === "users" && params[:action] === "show_hotels_stats") ? "bg-white" : "second-bg" %>>
     <%= render 'layouts/navigation' %>
     <div class="container">
       <%= render 'layouts/messages' %>

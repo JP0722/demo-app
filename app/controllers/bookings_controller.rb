@@ -34,6 +34,22 @@ class BookingsController < ApplicationController
      return
     end
 
+    ranges_from = Booking.where("hotel_id = ? AND from_date <= ? AND ? <= to_date ", @booking.hotel_id, @booking.from_date, @booking.from_date)
+
+    if !ranges_from.empty?
+     flash[:alert] = "You are trying to book some of the unavaiable dates, Please try again.."
+     redirect_to hotel_path(hotel)
+     return
+    end
+
+    ranges_to = Booking.where("hotel_id = ? AND from_date <= ? AND ? <= to_date ", @booking.hotel_id, @booking.to_date, @booking.to_date)
+
+    if !ranges_to.empty?
+     flash[:alert] = "You are trying to book some of the unavaiable dates, Please try again.."
+     redirect_to hotel_path(hotel)
+     return
+    end
+
     price_per_room = hotel.price_per_room
     @booking.price_per_room = price_per_room
     @booking.total_cost = (((@booking.to_date - @booking.from_date).to_i) +1) * @booking.price_per_room
@@ -53,6 +69,11 @@ class BookingsController < ApplicationController
   def destroy
     @booking = Booking.find(params[:id])
     @booking.destroy
+    begin
+      TwilioClient.new.send_text(@booking.user, "Hi #{@booking.user.name} Your booking from #{@booking.from_date} to #{@booking.to_date} at #{@booking.hotel.name} has been cancelled. Contact us for any other queries")
+    rescue => e
+      puts "Filed to send sms to user"
+    end
     flash[:notice] = "Booking has been cancelled successfully"
     redirect_to controller: "users", action: "show_bookings", id: @booking.user_id
   end

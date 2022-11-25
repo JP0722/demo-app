@@ -7,10 +7,12 @@
 		<div class="spinner-border text-center" role="status" style="height: 60px; width: 60px;">
 		</div>
 	</div>
-	<div id="booking-card">
+</div>
+<div>
+	<div id="booking-card" class="text-center" style="margin-left:15%">
 		<div class="card col-8 mt-2 shadow">
 			<div class="card-header">
-				<h3>Boking confirmed </h3>
+				<h3>Boking confirmed  <%= fa_icon "check" %></h3>
 			</div>
 			<div class="card-body">
 				Booking ID: <b> <%= @booking.id %> </b>
@@ -29,7 +31,9 @@
 			<div class="card-footer">
 				<%= link_to "Return to bookings list", {controller: "users", action: "show_bookings", id: current_user.id}, class: "btn btn-outline-dark" %>
 			</div>
+		</div>
+		<div class="card-body col-8 mt-2 shadow rounded">
+			Booking confirmation details has been sent to your registered mobile number
 		</div>		
 	</div>
-
 </div>

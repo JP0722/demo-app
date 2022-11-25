@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
     
-    before_action :required_user, only: [:show_hotels, :show_bookings, :update, :edit]
+    before_action :required_user, only: [:show_hotels, :show_bookings, :update, :edit, :show_hotels_stats]
+    before_action :required_same_user, only: [:updates, :edit, :destroy, :show_hotels, :show_bookings]
 
 	def new
 		@user = User.new
@@ -34,7 +35,9 @@ class UsersController < ApplicationController
 
 	def show_bookings
 		@bookings = current_user.bookings.order("created_at DESC")
-		
+	end
+
+	def show_hotels_stats
 	end
 
 	def edit
@@ -51,10 +54,28 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def destroy
+		@user = User.find(params[:id])
+		session[:user_id] = nil
+		@user.destroy
+		redirect_to login_path
+	end
+
 
 	private
 	
 	def user_params
 		params.require(:user).permit(:name, :email, :phonenumber, :password)
+	end
+
+	def required_same_user
+		puts "^"*20
+		puts current_user.id
+		puts params[:id]
+		puts "^"*20
+		if (current_user.id != params[:id].to_i)
+			flash[:alert] = "You are not allowed to perform this action"
+			redirect_to hotels_path
+		end
 	end
 end

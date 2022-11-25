@@ -7,13 +7,7 @@
 		<h5 class="m-4"> <%= fa_icon 'envelope' %> <%= @user.email %> </h5>
 		<h5 class="m-4"> <%= fa_icon 'phone' %> <%= @user.phonenumber %> </h5>
 
-		<%= link_to "Update your profile", edit_user_path(@user), class: 'btn main-text-color main-bg ml-4'  %>
-
-		<%#<% if !@user_hotels.blank? %>
-		<%#You own <%= @user_hotels.count  hotels %>
-		<%#<% else %>
-		<%#You don't own any hotels %>
-		<%#<% end %>
+		<%= link_to "Update your profile", edit_user_path(@user), class: 'btn main-text-color main-bg ml-4 btn-main-bg'   %>
 	  </div>
 	</div>
 </div>
