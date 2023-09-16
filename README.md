@@ -1,24 +1,10 @@
-# README
+# Property Booking basic web app
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Features
+#### Users can search proeprties
+#### Users can book available properties for specific days
+#### Users can cancel stay
+#### Users can rate & comment the stay
+#### Owners can upload property info (property image, prices, available dates)
+#### Owners can see all the past & upcoming bookings
+#### Users can see basic dashboard about how properties are performing
